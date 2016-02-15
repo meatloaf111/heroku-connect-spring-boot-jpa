@@ -58,10 +58,12 @@ public class HerokuConnectApplication {
         }
     }*/
 
-    @RequestMapping("/employees")
+    @RequestMapping("/employee")
     public String employees(Model model) {
         try {
             EmployeeDao dao = getEmployeeDao();
+
+
             List<Employee> employees = (List<Employee>) dao.findAll();
             /*for (Person person : persons) {
                 System.out.println(person);
