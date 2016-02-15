@@ -24,7 +24,7 @@ import org.springframework.context.annotation.ImportResource;
 @ImportResource("classpath:applicationContext.xml")
 public class HerokuConnectApplication {
     @Autowired
-    static EmployeeDao employeeDao;
+    EmployeeDao employeeDao;
 
     @RequestMapping("/")
     public String home(Model model) {
@@ -62,28 +62,38 @@ public class HerokuConnectApplication {
     public String employees(Model model) {
         try {
             EmployeeDao dao = getEmployeeDao();
+            List<Employee> employees = null;
 
-
-            List<Employee> employees = (List<Employee>) dao.findAll();
-            /*for (Person person : persons) {
-                System.out.println(person);
+            if(dao != null) {
+                Employee raj = new Employee("Raj", "Dua", 31);
+                dao.save(raj);
+                employees = (List<Employee>) dao.findAll();
+                /*for (Person person : persons) {
+                    System.out.println(person);
+                }
+                List contacts = new ArrayList<>();
+                // Extract data from result set
+                while (rs.next()) {
+                    int id = rs.getInt("id");
+                    String sfid = rs.getString("sfid");
+                    String name = rs.getString("name");
+                    String first = rs.getString("firstname");
+                    String last = rs.getString("lastname");
+                    String email = rs.getString("email");
+                    contacts.add(new Contact(id, sfid, first, last, email));
+                }*/
+                model.addAttribute("employees", employees);
+                //return "employee";
             }
-            List contacts = new ArrayList<>();
-            // Extract data from result set
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String sfid = rs.getString("sfid");
-                String name = rs.getString("name");
-                String first = rs.getString("firstname");
-                String last = rs.getString("lastname");
-                String email = rs.getString("email");
-                contacts.add(new Contact(id, sfid, first, last, email));
-            }*/
-            model.addAttribute("employees", employees);
-            return "employee";
+
         } catch (Exception e) {
-            return e.toString();
+            model.addAttribute("employees", new LinkedList());
+            e.printStackTrace();
+
+            //return e.toString();
+
         }
+        return "employee";
     }
 
     private static Connection getConnection() throws URISyntaxException, SQLException {
@@ -98,7 +108,7 @@ public class HerokuConnectApplication {
 		return DriverManager.getConnection(dbUrl, username, password);
 	}
 
-    private static EmployeeDao getEmployeeDao() {
+    private EmployeeDao getEmployeeDao() {
         //ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
         //        "applicationContext.xml");
         //EmployeeDao dao = context.getBean(EmployeeDao.class);
