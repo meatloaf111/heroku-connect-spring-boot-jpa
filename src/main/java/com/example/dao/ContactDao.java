@@ -20,8 +20,8 @@ public interface ContactDao extends CrudRepository<Contact, Long> {
     )
     public List<Contact> findById(Integer id);
 
-    @Query(value = "SELECT c  FROM salesforce.contact c'",
+    /*@Query(value = "SELECT c  FROM salesforce.contact c'",
             nativeQuery=true
     )
-    public List<Contact> findAll();
+    public List<Contact> findAll();*/
 }
