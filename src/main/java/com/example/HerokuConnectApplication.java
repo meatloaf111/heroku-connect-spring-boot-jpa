@@ -1,5 +1,6 @@
 package com.example;
 
+import com.example.dao.ContactDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.dao.EmployeeDao;
 import com.example.model.Employee;
 import org.springframework.context.annotation.ImportResource;
+import com.example.model.Contact;
 
 
 @Controller
@@ -26,15 +28,27 @@ public class HerokuConnectApplication {
     @Autowired
     EmployeeDao employeeDao;
 
+    @Autowired
+    ContactDao contactDao;
+
     @RequestMapping("/")
     public String home(Model model) {
         return "home";
     }
 
-	/*@RequestMapping("/contacts")
+	@RequestMapping("/contacts")
     public String contacts(Model model) {
         try {
-            Connection connection = getConnection();
+            ContactDao dao = getContactDao();
+            List<Contact> contacts = null;
+
+            if(dao != null) {
+                //Employee raj = new Employee("Raj", "Dua", 31);
+                //dao.save(raj);
+                contacts = (List<Contact>) dao.findAll();
+                model.addAttribute("contacts", contacts);
+            }
+            /*Connection connection = getConnection();
             Statement stmt = connection.createStatement();
             String sql;
             sql = "SELECT id, sfid,  firstname, lastname, name, email FROM salesforce.contact";
@@ -50,13 +64,17 @@ public class HerokuConnectApplication {
                 String last = rs.getString("lastname");
                 String email = rs.getString("email");
                 contacts.add(new Contact(id, sfid, first, last, email));
-            }
+            }*/
             model.addAttribute("contacts", contacts);
             return "contact";
         } catch (Exception e) {
-            return e.toString();
+            model.addAttribute("contacts", new LinkedList());
+            e.printStackTrace();
+            //return e.toString();
         }
-    }*/
+
+        return "contact";
+    }
 
     @RequestMapping("/employee")
     public String employees(Model model) {
@@ -65,8 +83,8 @@ public class HerokuConnectApplication {
             List<Employee> employees = null;
 
             if(dao != null) {
-                Employee raj = new Employee("Raj", "Dua", 31);
-                dao.save(raj);
+                //Employee raj = new Employee("Raj", "Dua", 31);
+                //dao.save(raj);
                 employees = (List<Employee>) dao.findAll();
                 /*for (Person person : persons) {
                     System.out.println(person);
@@ -113,6 +131,11 @@ public class HerokuConnectApplication {
         //        "applicationContext.xml");
         //EmployeeDao dao = context.getBean(EmployeeDao.class);
         return employeeDao;
+    }
+
+    private ContactDao getContactDao() {
+
+        return contactDao;
     }
 
 	public static void main(String[] args) {

@@ -64,8 +64,6 @@ public class Employee {
         this.age = age;
     }
 
-
-
     @Override
     public String toString() {
         return "Person [id=" + id + ", first=" + first + ", last=" + last
