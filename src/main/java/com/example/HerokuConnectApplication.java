@@ -65,7 +65,7 @@ public class HerokuConnectApplication {
                 String email = rs.getString("email");
                 contacts.add(new Contact(id, sfid, first, last, email));
             }*/
-            model.addAttribute("contacts", contacts);
+            //model.addAttribute("contacts", contacts);
             return "contact";
         } catch (Exception e) {
             model.addAttribute("contacts", new LinkedList());
