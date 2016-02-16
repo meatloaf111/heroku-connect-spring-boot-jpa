@@ -13,7 +13,7 @@ import javax.persistence.Table;
  * @author Rajdeep Dua
  */
 @Entity
-@Table(name = "salesforce.contact")
+@Table(name = "contact", schema="salesforce")//ame="document_collection", schema="document"
 public class Contact {
 
     @Id
