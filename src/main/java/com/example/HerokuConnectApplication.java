@@ -1,6 +1,7 @@
 package com.example;
 
-import com.example.dao.ContactDao;
+import com.example.dao.ContactRepository;
+import com.example.dao.ContactRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -14,7 +15,7 @@ import java.net.URISyntaxException;
 import java.net.URI;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.example.dao.EmployeeDao;
+import com.example.dao.EmployeeRepository;
 import com.example.model.Employee;
 import org.springframework.context.annotation.ImportResource;
 import com.example.model.Contact;
@@ -26,10 +27,10 @@ import com.example.model.Contact;
 @ImportResource("classpath:applicationContext.xml")
 public class HerokuConnectApplication {
     @Autowired
-    EmployeeDao employeeDao;
+    EmployeeRepository employeeRepository;
 
     @Autowired
-    ContactDao contactDao;
+    ContactRepository contactRepository;
 
     @RequestMapping("/")
     public String home(Model model) {
@@ -39,78 +40,34 @@ public class HerokuConnectApplication {
 	@RequestMapping("/contacts")
     public String contacts(Model model) {
         try {
-            ContactDao dao = getContactDao();
+            ContactRepository repo = getContactRepository();
             List<Contact> contacts = null;
 
-            if(dao != null) {
-                //Employee raj = new Employee("Raj", "Dua", 31);
-                //dao.save(raj);
-                //contacts = dao.findById(1);
-                contacts = (List<Contact>) dao.findAll();
+            if(repo != null) {
+                contacts = (List<Contact>) repo.findAll();
                 model.addAttribute("contacts", contacts);
             }
-            /*Connection connection = getConnection();
-            Statement stmt = connection.createStatement();
-            String sql;
-            sql = "SELECT id, sfid,  firstname, lastname, name, email FROM salesforce.contact";
-            ResultSet rs = stmt.executeQuery(sql);
-            StringBuffer sb = new StringBuffer();
-            List contacts = new ArrayList<>();
-            // Extract data from result set
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String sfid = rs.getString("sfid");
-                String name = rs.getString("name");
-                String first = rs.getString("firstname");
-                String last = rs.getString("lastname");
-                String email = rs.getString("email");
-                contacts.add(new Contact(id, sfid, first, last, email));
-            }*/
-            //model.addAttribute("contacts", contacts);
             return "contact";
         } catch (Exception e) {
             model.addAttribute("contacts", new LinkedList());
             e.printStackTrace();
-            //return e.toString();
         }
-
         return "contact";
     }
 
     @RequestMapping("/employee")
     public String employees(Model model) {
         try {
-            EmployeeDao dao = getEmployeeDao();
+            EmployeeRepository repo = getEmployeeDao();
             List<Employee> employees = null;
-
-            if(dao != null) {
-                //Employee raj = new Employee("Raj", "Dua", 31);
-                //dao.save(raj);
-                employees = (List<Employee>) dao.findAll();
-                /*for (Person person : persons) {
-                    System.out.println(person);
-                }
-                List contacts = new ArrayList<>();
-                // Extract data from result set
-                while (rs.next()) {
-                    int id = rs.getInt("id");
-                    String sfid = rs.getString("sfid");
-                    String name = rs.getString("name");
-                    String first = rs.getString("firstname");
-                    String last = rs.getString("lastname");
-                    String email = rs.getString("email");
-                    contacts.add(new Contact(id, sfid, first, last, email));
-                }*/
+            if(repo != null) {
+                employees = (List<Employee>) repo.findAll();
                 model.addAttribute("employees", employees);
-                //return "employee";
             }
 
         } catch (Exception e) {
             model.addAttribute("employees", new LinkedList());
             e.printStackTrace();
-
-            //return e.toString();
-
         }
         return "employee";
     }
@@ -127,16 +84,14 @@ public class HerokuConnectApplication {
 		return DriverManager.getConnection(dbUrl, username, password);
 	}
 
-    private EmployeeDao getEmployeeDao() {
-        //ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-        //        "applicationContext.xml");
-        //EmployeeDao dao = context.getBean(EmployeeDao.class);
-        return employeeDao;
+    private EmployeeRepository getEmployeeDao() {
+ ;
+        return employeeRepository;
     }
 
-    private ContactDao getContactDao() {
+    private ContactRepository getContactRepository() {
 
-        return contactDao;
+        return contactRepository;
     }
 
 	public static void main(String[] args) {
