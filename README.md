@@ -1,1 +1,2 @@
-# heroku-connect-spring-boot
+# heroku-connect-sring-mvc-jpa
+
