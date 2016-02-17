@@ -45,6 +45,7 @@ public class HerokuConnectApplication {
             if(dao != null) {
                 //Employee raj = new Employee("Raj", "Dua", 31);
                 //dao.save(raj);
+                //contacts = dao.findById(1);
                 contacts = (List<Contact>) dao.findAll();
                 model.addAttribute("contacts", contacts);
             }
