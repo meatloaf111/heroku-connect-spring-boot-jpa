@@ -10,9 +10,10 @@
 
     <!-- Directory to scan for repository classes -->
     <jpa:repositories base-package="com.example.dao" />
-<!--DATABASE_URL:      postgres://kxxxqcdoizxnxm:jD1AN82dqy0LB3HnVTU6FEBalo@ec2-107-20-136-89.compute-1.amazonaws.com:5432/
-d9915jgrh3fs6m
-    postgres://ubuntu:ubuntu@localhost:5342./postgres
+<!--DATABASE_URL:
+postgres://username:password@ec2-107-20-136-89.compute-1.amazonaws.com:5432/
+database
+ postgres://ubuntu:ubuntu@localhost:5422/postgres
 DATABASE_URL:
 -->
 
@@ -36,13 +37,14 @@ DATABASE_URL:
         </property>-->
         <!--
         <property name="url">
-            <value>jdbc:postgresql://ec2-107-20-136-89.compute-1.amazonaws.com:5432/d9915jgrh3fs6m&amp;sslmode=require</value>
+            <value>jdbc:postgresql://ec2-107-20-136-89.compute-1.amazonaws.com:5432/
+            database</value>
         </property>
         <property name="username">
-            <value>kxxxqcdoizxnxm</value>
+            <value>username</value>
         </property>
         <property name="password">
-            <value>jD1AN82dqy0LB3HnVTU6FEBalo</value>
+            <value>password</value>
         </property>
         -->
     </bean>
@@ -60,27 +62,7 @@ DATABASE_URL:
         <property name="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
         </property>
-        <!--<property name="jpaVendorAdapter">
-            <bean class="org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter">
-                <property name="showSql" value="true"/>
-                <property name="generateDdl" value="false"/>
-                <property name="databasePlatform" value="org.eclipse.persistence.platform.database.PostgreSQLPlatform"/>
-            </bean>
-        </property>-->
-        <!--<property name="jpaDialect">
-            <bean class="org.springframework.orm.jpa.vendor.EclipseLinkJpaDialect" />
-        </property>
-        <property name="jpaProperties">
-            <props>
-                <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
-                <prop key="hibernate.show_sql">false</prop>
-                <prop key="hibernate.format_sql">false</prop>
-                <prop key="hibernate.hbm2ddl.auto">create</prop>
-            </props>
-        </property>
-        <property name="loadTimeWeaver">
-            <bean class="org.springframework.instrument.classloading.ReflectiveLoadTimeWeaver" />
-        </property>-->
+
     </bean>
 
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
