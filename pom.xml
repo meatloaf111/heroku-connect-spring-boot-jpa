@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.example</groupId>
-	<artifactId>heroku-connect-spring-boot</artifactId>
+	<artifactId>heroku-connect-spring-boot-jpa</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
@@ -59,11 +59,11 @@
         <artifactId>hibernate-core</artifactId>
         <version>4.2.0.Final</version>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>eclipselink</artifactId>
             <version>2.5.0</version>
-        </dependency>
+        </dependency>-->
 	</dependencies>
 	
 	<build>
