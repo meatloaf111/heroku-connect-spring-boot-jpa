@@ -1,2 +1,2 @@
-# heroku-connect-sring-mvc-jpa
+# Heroku Connect Spring Data Jpa
 
